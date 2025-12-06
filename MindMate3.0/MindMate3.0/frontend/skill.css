@@ -1,0 +1,20 @@
+body {
+  background: #f9fafb;
+  font-family: 'Inter', sans-serif;
+  color: #2d2d2d;
+}
+
+h2 {
+  color: #344767;
+}
+
+#result {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+select.form-select {
+  font-weight: 600;
+  color: #344767;
+}

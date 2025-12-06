@@ -1,0 +1,30 @@
+<!-- Tier Connection -->
+<section id="tier-connect">
+  <h2>Connect with Tier 1 Students</h2>
+  <div id="tier-cards"></div>
+</section>
+
+<style>
+#tier-connect { padding: 20px; background: #e3f2fd; border-radius: 10px; }
+.tier-card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+</style>
+
+<script>
+fetch("backend/tier_connection.php")
+.then(res => res.json())
+.then(data => {
+    let container = document.getElementById("tier-cards");
+    data.forEach(stu=>{
+        container.innerHTML += `
+            <div class="tier-card">
+                <h3>${stu.name} - Tier ${stu.tier}</h3>
+                <p>Skills: ${stu.skills}</p>
+                <button onclick="connectTier('${stu.id}')">Request Mentor</button>
+            </div>
+        `;
+    });
+});
+function connectTier(id){
+    alert("Mentorship request sent to " + id);
+}
+</script>

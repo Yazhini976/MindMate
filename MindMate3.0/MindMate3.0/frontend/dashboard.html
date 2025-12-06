@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BridgeUp Dashboard</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/style.css" />
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase/config.js"></script>
+  
+  <style>
+    /* Extra custom styles for dashboard */
+
+    body {
+      background: #f0f4ff;
+      font-family: 'Poppins', sans-serif;
+      color: #2c3e50;
+    }
+
+    .navbar-brand {
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #34495e !important;
+    }
+
+    .welcome-section {
+      background: white;
+      border-radius: 1rem;
+      box-shadow: 0 0.5rem 1.5rem rgba(52, 73, 94, 0.15);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .user-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+
+    .card {
+      border-radius: 1rem !important;
+      box-shadow: 0 0.5rem 1.5rem rgba(52, 73, 94, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: white;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 1rem 2.5rem rgba(52, 73, 94, 0.25);
+    }
+
+    .card h4 {
+      font-weight: 700;
+      color: #34495e;
+    }
+
+    .card p {
+      color: #7f8c8d;
+      font-size: 0.95rem;
+    }
+
+    .internship-feed {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem 2rem;
+      box-shadow: 0 0.5rem 1.5rem rgba(52, 73, 94, 0.15);
+      margin-top: 2rem;
+    }
+
+    .internship-feed h5 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #34495e;
+    }
+
+    .internship-item {
+      border-bottom: 1px solid #ecf0f1;
+      padding: 0.7rem 0;
+    }
+
+    .internship-item:last-child {
+      border-bottom: none;
+    }
+
+    .internship-title {
+      font-weight: 600;
+      color: #2980b9;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .internship-company {
+      font-size: 0.9rem;
+      color: #95a5a6;
+    }
+
+    .logout-btn {
+      border-radius: 50px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+      .welcome-section, .internship-feed {
+        margin-bottom: 1.5rem;
+      }
+      .skill-tracker-card {
+  border-radius: 12px;
+  background-color: #f0f4ff;
+  color: #1e3a8a;
+  font-family: 'Inter', sans-serif;
+}
+
+.skill-tracker-card .card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+.performance-card {
+  border-radius: 12px;
+  background-color: #fff9f0;
+  color: #5a3e1b;
+  font-family: 'Inter', sans-serif;
+}
+
+.performance-card .card-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fs-3" href="#">BridgeUp</a>
+      <button id="logoutBtn" class="btn btn-danger logout-btn ms-auto px-4">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <!-- Welcome & User Details -->
+    <section class="welcome-section text-center" data-aos="fade-down" data-aos-duration="800">
+      <h2 id="welcomeMsg">Welcome, User!</h2>
+      <p>Your BridgeUp Profile</p>
+      <div id="userDetails" class="mt-3">
+        <p><strong>Email:</strong> <span id="userEmail">-</span></p>
+        <p><strong>College Tier:</strong> <span id="userTier">-</span></p>
+        <p><strong>Domain Interest:</strong> <span id="userDomain">-</span></p>
+        <p>
+          <strong>Skill Level: </strong>
+          <span id="userSkillLevel" class="user-badge">-</span>
+        </p>
+      </div>
+    </section>
+
+    <!-- Navigation Cards -->
+     
+    <section class="row g-4">
+        <div class="card skill-tracker-card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Skill Tracker</h5>
+    <p class="card-text mb-2">Current Skill Level: <span id="skillLevelText" class="fw-bold">Loading...</span></p>
+    <div class="progress mb-3" style="height: 20px;">
+      <div id="skillProgressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+    </div>
+    <p id="skillMessage" class="mb-0"></p>
+  </div>
+</div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card p-4 text-center" onclick="location.href='mentor.html'">
+          <h4>Mentor-Student Chat</h4>
+          <p>Connect with mentors and get guidance.</p>
+        </div>
+      </div>
+      
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card p-4 text-center" onclick="location.href='skill.html'">
+          <h4>Skill Level Quiz</h4>
+          <p>Take quizzes and earn skill badges.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card p-4 text-center" onclick="location.href='teammate.html'">
+          <h4>Teammate Finder</h4>
+          <p>Find teammates for hackathons and projects.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="card p-4 text-center" onclick="location.href='jobs.html'">
+          <h4>Jobs & Internships</h4>
+          <p>Get personalized job and internship recommendations.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+        <div class="card p-4 text-center" onclick="location.href='gaming.html'">
+          <h4>Introvert Game Connect</h4>
+          <p>Socialize through fun mini games designed for introverts.</p>
+        </div>
+      </div>
+      <div class="card performance-card mb-4 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">Student Performance</h5>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Skill Level:
+        <span id="perfSkillLevel" class="badge bg-primary rounded-pill">Loading...</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Completed Assessments:
+        <span id="perfAssessments" class="badge bg-success rounded-pill">0</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Coding Challenges Participated:
+        <span id="perfChallenges" class="badge bg-info rounded-pill">0</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Internship/Job Applications:
+        <span id="perfApplications" class="badge bg-warning text-dark rounded-pill">0</span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        Average Score:
+        <span id="perfAvgScore" class="badge bg-secondary rounded-pill">0%</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+      
+      </div>
+    </section>
+
+    
+  </main>
+
+  <footer class="bg-primary text-white py-3 text-center">
+    <div class="container">
+      <small>&copy; 2025 BridgeUp. All rights reserved.</small>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: "ease-in-out",
+      once: true,
+    });
+  </script>
+
+  <script>
+    const db = firebase.firestore();
+
+    // Show logged-in user's info and internship feed
+    auth.onAuthStateChanged(async (user) => {
+      if (!user) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const welcomeMsg = document.getElementById("welcomeMsg");
+      const userEmail = document.getElementById("userEmail");
+      const userTier = document.getElementById("userTier");
+      const userDomain = document.getElementById("userDomain");
+      const userSkillLevel = document.getElementById("userSkillLevel");
+      const internshipList = document.getElementById("internshipList");
+
+      welcomeMsg.textContent = `Welcome, ${user.displayName || user.email}!`;
+      userEmail.textContent = user.email;
+
+      // Fetch additional user details from Firestore "users" collection
+      try {
+        const userDoc = await db.collection("users").doc(user.uid).get();
+
+        if (userDoc.exists) {
+          const data = userDoc.data();
+          userTier.textContent = data.collegeTier || "Not set";
+          userDomain.textContent = data.domainInterest || "Not set";
+          userSkillLevel.textContent = data.skillLevel || "-";
+        } else {
+          userTier.textContent = "Not set";
+          userDomain.textContent = "Not set";
+          userSkillLevel.textContent = "-";
+        }
+      } catch (err) {
+        console.error("Error fetching user data:", err);
+        userTier.textContent = "Error";
+        userDomain.textContent = "Error";
+        userSkillLevel.textContent = "-";
+      }
+
+      // Fetch latest internships (limit 5) from Firestore "internships" collection
+      try {
+        const internshipsSnapshot = await db.collection("internships")
+          .orderBy("postedAt", "desc")
+          .limit(5)
+          .get();
+
+        if (internshipsSnapshot.empty) {
+          internshipList.innerHTML = "<p>No internships available now.</p>";
+        } else {
+          internshipList.innerHTML = "";
+          internshipsSnapshot.forEach(doc => {
+            const internship = doc.data();
+            const item = document.createElement("div");
+            item.className = "internship-item";
+
+            item.innerHTML = `
+              <div class="internship-title" title="${internship.description || ''}" onclick="window.open('${internship.link}', '_blank')">
+                ${internship.title}
+              </div>
+              <div class="internship-company">${internship.company}</div>
+            `;
+
+            internshipList.appendChild(item);
+          });
+        }
+      } catch (err) {
+        internshipList.innerHTML = "<p>Error loading internships.</p>";
+        console.error("Error fetching internships:", err);
+      }
+    });
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      auth.signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    });
+    // Example: Assume we get the skill score from 0 to 40 (20 questions * max 2 points each)
+// This can come from your actual skill assessment data or database
+
+// For demo, randomly generate a score between 0 and 40:
+const skillScore = Math.floor(Math.random() * 41);
+
+// Calculate percentage
+const maxScore = 40;
+const percentage = Math.round((skillScore / maxScore) * 100);
+
+// Determine skill level
+let skillLevel = '';
+let skillMsg = '';
+
+if (skillScore <= 20) {
+  skillLevel = 'Starter';
+  skillMsg = 'You have foundational skills. Keep practicing and growing!';
+} else if (skillScore <= 33) {
+  skillLevel = 'Skilled';
+  skillMsg = 'Good progress! Keep up the consistent effort.';
+} else {
+  skillLevel = 'Proficient';
+  skillMsg = 'Excellent work! You are highly skilled and ready for challenges.';
+}
+
+// Update DOM elements
+document.getElementById('skillLevelText').textContent = skillLevel;
+const progressBar = document.getElementById('skillProgressBar');
+progressBar.style.width = percentage + '%';
+progressBar.setAttribute('aria-valuenow', percentage);
+progressBar.textContent = percentage + '%';
+document.getElementById('skillMessage').textContent = skillMsg;
+
+// Example student performance data (replace with real data)
+const studentPerformance = {
+  skillLevel: 'Skilled',
+  completedAssessments: 7,
+  codingChallenges: 12,
+  internshipApplications: 5,
+  averageScorePercent: 76
+};
+
+// Update the dashboard values
+document.getElementById('perfSkillLevel').textContent = studentPerformance.skillLevel;
+document.getElementById('perfAssessments').textContent = studentPerformance.completedAssessments;
+document.getElementById('perfChallenges').textContent = studentPerformance.codingChallenges;
+document.getElementById('perfApplications').textContent = studentPerformance.internshipApplications;
+document.getElementById('perfAvgScore').textContent = studentPerformance.averageScorePercent + '%';
+
+
+  </script>
+</body>
+</html>

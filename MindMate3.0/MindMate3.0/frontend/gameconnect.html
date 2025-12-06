@@ -1,0 +1,35 @@
+<!-- Game Connect -->
+<section id="game-connect">
+  <h2>Game Connect 🎮</h2>
+  <div class="games-list" id="games-list"></div>
+</section>
+
+<style>
+#game-connect { padding: 20px; background: #fff3e0; border-radius: 10px; }
+.games-list { display: flex; gap: 20px; flex-wrap: wrap; }
+.game-card { background: white; padding: 15px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", ()=>{
+    const games = [
+        {name: "Code Quiz", players: 5, type: "Quiz"},
+        {name: "Logic Battle", players: 3, type: "Puzzle"},
+        {name: "Hackathon Sprint", players: 4, type: "Challenge"}
+    ];
+    let container = document.getElementById("games-list");
+    games.forEach(g=>{
+        container.innerHTML += `
+            <div class="game-card">
+                <h3>${g.name}</h3>
+                <p>Players: ${g.players}</p>
+                <p>Type: ${g.type}</p>
+                <button onclick="joinGame('${g.name}')">Join</button>
+            </div>
+        `;
+    });
+});
+function joinGame(name){
+    alert("You joined " + name);
+}
+</script>

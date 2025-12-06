@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jobs & Internships — Twinity</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f0f4ff;
+      color: #222;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+    h2 {
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      color: #344767;
+      margin-bottom: 2rem;
+    }
+    form#filterForm {
+      background: white;
+      padding: 1rem 1.5rem;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(52, 71, 103, 0.1);
+      margin-bottom: 2rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    form#filterForm select {
+      border-radius: 10px;
+      border: 1.5px solid #d2d6de;
+      padding: 0.45rem 0.75rem;
+      font-weight: 600;
+      color: #344767;
+      transition: border-color 0.3s ease;
+    }
+    form#filterForm select:focus {
+      border-color: #5e72e4;
+      box-shadow: 0 0 0 2px rgba(94, 114, 228, 0.2);
+      outline: none;
+    }
+    #opportunityList {
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(52, 71, 103, 0.15);
+      max-height: 600px;
+      overflow-y: auto;
+      padding: 0.25rem 0;
+    }
+    #opportunityList .list-group-item {
+      cursor: pointer;
+      border: none;
+      border-radius: 12px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      padding: 1.25rem 1.75rem;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #344767;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 3px rgba(52, 71, 103, 0.08);
+      margin: 0.3rem 1rem;
+      background: #fafbff;
+    }
+    #opportunityList .list-group-item:hover {
+      background-color: #e6ebff;
+      box-shadow: 0 4px 15px rgba(94, 114, 228, 0.3);
+      color: #2a2a72;
+      transform: translateX(5px);
+    }
+    #opportunityList .list-group-item > span {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #6b7280;
+      white-space: nowrap;
+      margin-left: 1rem;
+      user-select: none;
+    }
+
+    /* Modal Styling */
+    .modal-content {
+      border-radius: 16px;
+      padding: 1.8rem 2rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      color: #2c3e50;
+      max-width: 720px;
+      margin: auto;
+    }
+    .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .modal-title {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #344767;
+      letter-spacing: 0.8px;
+    }
+    .modal-body p {
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: #4a4a4a;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+    .modal-body p strong {
+      color: #5e72e4;
+    }
+    .modal-footer {
+      border-top: none;
+      padding-top: 0.8rem;
+      justify-content: flex-end;
+    }
+    .btn-close {
+      filter: drop-shadow(0 0 0.5px #5e72e4);
+    }
+    a#modalApply {
+      display: inline-block;
+      padding: 0.5rem 1.3rem;
+      background: #5e72e4;
+      color: white !important;
+      font-weight: 700;
+      border-radius: 12px;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+      user-select: none;
+    }
+    a#modalApply:hover {
+      background-color: #324cdd;
+      text-decoration: none;
+      color: white !important;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #opportunityList .list-group-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      #opportunityList .list-group-item > span {
+        margin-left: 0;
+        margin-top: 0.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <h2>Find Jobs & Internships</h2>
+  </div>
+
+  <form id="filterForm" class="row g-3 justify-content-center">
+    <div class="col-12 col-md-6 col-lg-3">
+      <select id="filterType" class="form-select" aria-label="Filter by type">
+        <option value="">All Types</option>
+        <option value="Full-time">Full-time</option>
+        <option value="Part-time">Part-time</option>
+        <option value="Internship">Internship</option>
+        <option value="Remote">Remote</option>
+      </select>
+    </div>
+
+    <div class="col-6 col-md-3 col-lg-2">
+      <select id="filterLocation" class="form-select" aria-label="Filter by location">
+        <option value="">All Locations</option>
+        <option value="North">North</option>
+        <option value="South">South</option>
+        <option value="East">East</option>
+        <option value="West">West</option>
+        <option value="Remote">Remote</option>
+      </select>
+    </div>
+
+    <div class="col-6 col-md-3 col-lg-2">
+      <select id="filterExperience" class="form-select" aria-label="Filter by experience level">
+        <option value="">Any Experience</option>
+        <option value="Fresher">Fresher</option>
+        <option value="1-2 years">1-2 years</option>
+        <option value="3-5 years">3-5 years</option>
+        <option value="5+ years">5+ years</option>
+      </select>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-3">
+      <select id="filterDomain" class="form-select" aria-label="Filter by domain">
+        <option value="">All Domains</option>
+        <option value="Web Development">Web Development</option>
+        <option value="Data Science">Data Science</option>
+        <option value="AI/ML">AI/ML</option>
+        <option value="Mobile Apps">Mobile Apps</option>
+        <option value="Cybersecurity">Cybersecurity</option>
+        <option value="Cloud Computing">Cloud Computing</option>
+        <option value="UI/UX Design">UI/UX Design</option>
+      </select>
+    </div>
+  </form>
+
+  <div id="opportunityList" class="list-group"></div>
+
+  <!-- Opportunity Detail Modal -->
+  <div class="modal fade" id="opportunityModal" tabindex="-1" aria-labelledby="opportunityModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content rounded-4 shadow-lg">
+        <div class="modal-header">
+          <h5 class="modal-title" id="opportunityModalLabel">Opportunity Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4 id="modalTitle"></h4>
+          <p><strong>Type:</strong> <span id="modalType"></span></p>
+          <p><strong>Location:</strong> <span id="modalLocation"></span></p>
+          <p><strong>Experience Required:</strong> <span id="modalExperience"></span></p>
+          <p><strong>Domain:</strong> <span id="modalDomain"></span></p>
+          <p><strong>Company:</strong> <span id="modalCompany"></span></p>
+          <p><strong>Apply Link:</strong> <a href="#" id="modalApply" target="_blank" rel="noopener noreferrer">Apply Here</a></p>
+          <p><strong>Description:</strong></p>
+          <p id="modalDescription" style="white-space: pre-line;"></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const opportunityList = document.getElementById('opportunityList');
+    const filterForm = document.getElementById('filterForm');
+    const opportunityModal = new bootstrap.Modal(document.getElementById('opportunityModal'));
+
+    const modalTitle = document.getElementById('modalTitle');
+    const modalType = document.getElementById('modalType');
+    const modalLocation = document.getElementById('modalLocation');
+    const modalExperience = document.getElementById('modalExperience');
+    const modalDomain = document.getElementById('modalDomain');
+    const modalCompany = document.getElementById('modalCompany');
+    const modalApply = document.getElementById('modalApply');
+    const modalDescription = document.getElementById('modalDescription');
+
+    // Constants for data generation
+    const domains = ["Web Development", "Data Science", "AI/ML", "Mobile Apps", "Cybersecurity", "Cloud Computing", "UI/UX Design"];
+    const types = ["Full-time", "Part-time", "Internship", "Remote"];
+    const locations = ["North", "South", "East", "West", "Remote"];
+    const experiences = ["Fresher", "1-2 years", "3-5 years", "5+ years"];
+    const companies = ["TechSoft", "InnovateX", "Cloudify", "DataMinds", "AI Labs", "WebWorks", "SecureNet", "AppVantage", "DesignPro", "NextGen", "FutureTech", "CyberWave"];
+
+    function generateDescription(domain) {
+      return `Join our ${domain} team to work on exciting projects that challenge and grow your skills. Collaborate with experts and build impactful solutions that make a difference.`;
+    }
+
+    // Generate 500+ dummy opportunities
+    const opportunities = [];
+    for(let i=1; i<=520; i++) {
+      const domain = domains[Math.floor(Math.random()*domains.length)];
+      const type = types[Math.floor(Math.random()*types.length)];
+      const location = locations[Math.floor(Math.random()*locations.length)];
+      const experience = experiences[Math.floor(Math.random()*experiences.length)];
+      const company = companies[Math.floor(Math.random()*companies.length)];
+      opportunities.push({
+        id: i,
+        title: `${domain} ${type} Opportunity #${i}`,
+        type,
+        location,
+        experience,
+        domain,
+        company,
+        applyLink: `https://apply.example.com/opportunity/${i}`,
+        description: generateDescription(domain),
+      });
+    }
+
+    function renderOpportunities(filter = {}) {
+      opportunityList.innerHTML = '';
+
+      const filtered = opportunities.filter(op => {
+        return (!filter.type || op.type === filter.type)
+          && (!filter.location || op.location === filter.location)
+          && (!filter.experience || op.experience === filter.experience)
+          && (!filter.domain || op.domain === filter.domain);
+      });
+
+      if (filtered.length === 0) {
+        opportunityList.innerHTML = '<p class="text-center text-muted mt-4">No matching opportunities found.</p>';
+        return;
+      }
+
+      filtered.forEach(op => {
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+        item.textContent = `${op.title} — ${op.company}`;
+        const span = document.createElement('span');
+        span.textContent = op.location;
+        item.appendChild(span);
+        item.setAttribute('aria-label', `View details for ${op.title}`);
+
+        item.addEventListener('click', () => {
+          showOpportunityModal(op);
+        });
+
+        opportunityList.appendChild(item);
+      });
+    }
+
+    function showOpportunityModal(op) {
+      modalTitle.textContent = op.title;
+      modalType.textContent = op.type;
+      modalLocation.textContent = op.location;
+      modalExperience.textContent = op.experience;
+      modalDomain.textContent = op.domain;
+      modalCompany.textContent = op.company;
+      modalApply.href = op.applyLink;
+      modalApply.textContent = "Apply Here";
+      modalDescription.textContent = op.description;
+
+      opportunityModal.show();
+    }
+
+    filterForm.addEventListener('change', () => {
+      const filter = {
+        type: filterForm.filterType.value,
+        location: filterForm.filterLocation.value,
+        experience: filterForm.filterExperience.value,
+        domain: filterForm.filterDomain.value,
+      };
+      renderOpportunities(filter);
+    });
+
+    // Initial render
+    renderOpportunities();
+  </script>
+</body>
+</html>

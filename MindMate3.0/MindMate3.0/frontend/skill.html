@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Skill Set Assessment</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="skill.css" />
+</head>
+<body>
+  <div class="container my-5">
+    <h2 class="mb-4 text-center">Skill Set Assessment</h2>
+    <form id="assessmentForm" class="needs-validation" novalidate>
+      <!-- Questions here -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">1. How comfortable are you with writing code independently?</label>
+        <select class="form-select" name="q1" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">I struggle and need lots of help</option>
+          <option value="1">I can write simple code with some guidance</option>
+          <option value="2">I can write complex code confidently</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">2. How often do you debug code and fix errors yourself?</label>
+        <select class="form-select" name="q2" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Rarely or need help</option>
+          <option value="1">Sometimes with effort</option>
+          <option value="2">Frequently and independently</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">3. How do you handle unfamiliar technologies?</label>
+        <select class="form-select" name="q3" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">I avoid them or get stuck</option>
+          <option value="1">I try to learn with help</option>
+          <option value="2">I explore and learn on my own</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">4. How comfortable are you working in a team on projects?</label>
+        <select class="form-select" name="q4" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">I prefer working alone</option>
+          <option value="1">I participate but sometimes hesitate</option>
+          <option value="2">I actively collaborate and communicate</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">5. How do you approach learning new programming concepts?</label>
+        <select class="form-select" name="q5" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">I find it difficult and slow</option>
+          <option value="1">I learn with practice and help</option>
+          <option value="2">I grasp concepts quickly and experiment</option>
+        </select>
+      </div>
+
+      <!-- Add questions 6 to 20 similarly -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">6. How do you manage deadlines and project schedules?</label>
+        <select class="form-select" name="q6" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Often miss deadlines</option>
+          <option value="1">Usually manage with reminders</option>
+          <option value="2">Always meet deadlines efficiently</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">7. How confident are you in explaining technical concepts?</label>
+        <select class="form-select" name="q7" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">I struggle to explain</option>
+          <option value="1">I explain with some difficulty</option>
+          <option value="2">I explain clearly and confidently</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">8. How frequently do you participate in coding challenges or hackathons?</label>
+        <select class="form-select" name="q8" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Rarely or never</option>
+          <option value="1">Occasionally</option>
+          <option value="2">Frequently</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">9. How comfortable are you with version control tools (e.g., Git)?</label>
+        <select class="form-select" name="q9" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Not familiar</option>
+          <option value="1">Basic understanding</option>
+          <option value="2">Proficient and use regularly</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">10. How do you handle feedback or code reviews?</label>
+        <select class="form-select" name="q10" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Take it personally</option>
+          <option value="1">Accept but sometimes struggle</option>
+          <option value="2">Use it to improve actively</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">11. How often do you read technical articles or documentation?</label>
+        <select class="form-select" name="q11" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Rarely</option>
+          <option value="1">Sometimes</option>
+          <option value="2">Regularly</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">12. How comfortable are you with debugging tools?</label>
+        <select class="form-select" name="q12" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Not comfortable</option>
+          <option value="1">Somewhat comfortable</option>
+          <option value="2">Very comfortable</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">13. How do you prioritize tasks when working on projects?</label>
+        <select class="form-select" name="q13" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">No clear priority</option>
+          <option value="1">Try to prioritize but not always successful</option>
+          <option value="2">Plan and follow priorities effectively</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">14. How often do you practice coding outside coursework?</label>
+        <select class="form-select" name="q14" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Rarely</option>
+          <option value="1">Occasionally</option>
+          <option value="2">Regularly</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">15. How confident are you in learning new programming languages?</label>
+        <select class="form-select" name="q15" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Not confident</option>
+          <option value="1">Somewhat confident</option>
+          <option value="2">Very confident</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">16. How comfortable are you working under pressure?</label>
+        <select class="form-select" name="q16" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">I get stressed easily</option>
+          <option value="1">Manage with some difficulty</option>
+          <option value="2">Work well under pressure</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">17. How do you approach problem-solving?</label>
+        <select class="form-select" name="q17" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">I get stuck often</option>
+          <option value="1">Try different approaches</option>
+          <option value="2">Analyze and solve efficiently</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">18. How comfortable are you with collaborative coding tools (e.g., code sharing)?</label>
+        <select class="form-select" name="q18" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Not comfortable</option>
+          <option value="1">Somewhat comfortable</option>
+          <option value="2">Very comfortable</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">19. How often do you seek help when stuck?</label>
+        <select class="form-select" name="q19" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Rarely ask for help</option>
+          <option value="1">Ask sometimes</option>
+          <option value="2">Ask proactively</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">20. How do you stay updated with latest tech trends?</label>
+        <select class="form-select" name="q20" required>
+          <option value="" disabled selected>Select an option</option>
+          <option value="0">Not updated</option>
+          <option value="1">Occasionally follow updates</option>
+          <option value="2">Regularly follow news and updates</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </form>
+
+    <div id="result" class="mt-5 text-center"></div>
+  </div>
+
+  <script src="skill.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Twinity | Empower. Connect. Uplift.</title>
+  
+  <!-- Bootstrap CSS CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap"
+    rel="stylesheet"
+  />
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fs-3 fw-bold" href="#">Twinity</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navMenu"
+        aria-controls="navMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item mx-2">
+            <button
+              class="btn btn-primary"
+              onclick="location.href='login.html'"
+            >
+              Login
+            </button>
+          </li>
+          <li class="nav-item mx-2">
+            <button
+              class="btn btn-outline-primary"
+              onclick="location.href='signin.html'"
+            >
+              Join Now
+            </button>
+            <li class="nav-item mx-2">
+            <button
+              class="btn btn-outline-primary"
+              onclick="location.href='Dashboard.html'"
+            >
+              dashboard
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero-section d-flex align-items-center text-center" id="hero">
+    <div class="container" data-aos="fade-up">
+      <h1 class="display-4 fw-bold mb-3">
+        Empowering Tier 2 & 3 Students with Opportunities and Connections
+      </h1>
+      <p class="lead mb-4">
+        Bridge the gap between talent and opportunity. Connect with mentors, peers, and internships
+        through a gamified, skill-based peer learning platform.
+      </p>
+      <button
+        class="btn btn-lg btn-primary me-3"
+        onclick="location.href='payment.html'"
+      >
+        Get Started
+      </button>
+      <button
+        class="btn btn-lg btn-outline-primary"
+        onclick="location.href='login.html'"
+      >
+        Login
+      </button>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section class="features-section py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5 fw-bold" data-aos="fade-up">Why BridgeUp?</h2>
+      <div class="row g-4">
+        <div class="col-md-4" data-aos="fade-right" data-aos-delay="100">
+          <div class="card shadow-sm h-100 p-4 text-center">
+            <div class="feature-icon mb-3 text-primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                fill="currentColor"
+                class="bi bi-people-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M13 7a2 2 0 1 0-3.999.001A3.5 3.5 0 0 0 6.5 10.5a3.5 3.5 0 0 0-3.5 3.5v1a1 1 0 1 0 2 0v-1a1.5 1.5 0 0 1 3 0v1a1 1 0 1 0 2 0v-1a3.5 3.5 0 0 0 1.5-3z"
+                />
+                <path
+                  fill-rule="evenodd"
+                  d="M5.216 14A2.238 2.238 0 0 1 3 12.5v-1a1.5 1.5 0 0 1 1.5-1.5h2a1.5 1.5 0 0 1 1.5 1.5v1c0 .246-.081.48-.216.669A2.35 2.35 0 0 1 5.216 14z"
+                />
+              </svg>
+            </div>
+            <h5 class="fw-semibold mb-2">Connect Across College Tiers</h5>
+            <p>
+              Network with Tier 1 mentors and peers to gain exposure, guidance, and real-world experience.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="card shadow-sm h-100 p-4 text-center">
+            <div class="feature-icon mb-3 text-primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                fill="currentColor"
+                class="bi bi-lightning-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.3 1L2.7 9.8l3.4-.4-1.6 5.8L13.3 7.2l-3.4.4 1.6-5.8z"
+                />
+              </svg>
+            </div>
+            <h5 class="fw-semibold mb-2">Gamified Skill Levels</h5>
+            <p>
+              Take quizzes and earn skill badges to unlock internships and job opportunities.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-left" data-aos-delay="300">
+          <div class="card shadow-sm h-100 p-4 text-center">
+            <div class="feature-icon mb-3 text-primary">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="48"
+                height="48"
+                fill="currentColor"
+                class="bi bi-joystick"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 0a4 4 0 0 1 4 4v3H4V4a4 4 0 0 1 4-4zM3.5 6a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5z"
+                />
+                <path
+                  d="M2 9.5A1.5 1.5 0 0 1 3.5 8h9A1.5 1.5 0 0 1 14 9.5v2a1.5 1.5 0 0 1-1.5 1.5H3.5A1.5 1.5 0 0 1 2 11.5v-2z"
+                />
+              </svg>
+            </div>
+            <h5 class="fw-semibold mb-2">Connect Through Gaming</h5>
+            <p>
+              Special mini games help introverted students connect and find teammates in a fun way.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white py-4 text-center">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 BridgeUp. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS Animation JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+    });
+  </script>
+</body>
+</html>
+

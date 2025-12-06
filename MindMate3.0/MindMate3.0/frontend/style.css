@@ -1,0 +1,89 @@
+/* Reset & base */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f9faff;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* Navbar brand style */
+.navbar-brand {
+  color: #3b3f5c !important;
+  letter-spacing: 2px;
+}
+
+/* Hero Section */
+.hero-section {
+  min-height: 80vh;
+  background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.hero-section h1 {
+  font-weight: 700;
+  font-size: 2.8rem;
+  max-width: 900px;
+  margin: 0 auto 1rem auto;
+  line-height: 1.2;
+}
+
+.hero-section p {
+  font-size: 1.25rem;
+  max-width: 700px;
+  margin: 0 auto 2rem auto;
+  font-weight: 400;
+}
+
+/* Buttons in hero */
+.hero-section .btn-primary {
+  padding: 0.8rem 2.5rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+}
+
+.hero-section .btn-outline-primary {
+  padding: 0.8rem 2.5rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+}
+
+/* Features Section */
+.features-section {
+  background: #f5f7ff;
+}
+
+.features-section h2 {
+  font-weight: 700;
+  color: #3b3f5c;
+  margin-bottom: 3rem;
+}
+
+.feature-icon svg {
+  color: #4a61e8;
+}
+
+.card {
+  border-radius: 1rem !important;
+}
+
+/* Footer */
+footer {
+  background: #4a61e8;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+}
+
+footer p {
+  margin: 0;
+}

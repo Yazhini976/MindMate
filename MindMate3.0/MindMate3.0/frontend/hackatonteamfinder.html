@@ -1,0 +1,41 @@
+<!-- Hackathon Team Finder -->
+<section id="team-finder">
+  <h2>Find Hackathon Teammates</h2>
+  <input type="text" id="search-skill" placeholder="Search by Skill or Domain">
+  <button onclick="searchTeams()">Search</button>
+
+  <div id="team-results" class="card-container">
+    <!-- Dynamic results here -->
+  </div>
+</section>
+
+<style>
+#team-finder { padding: 20px; background: #f9f9f9; border-radius: 10px; }
+#team-results { display: grid; grid-template-columns: repeat(auto-fit,minmax(250px,1fr)); gap: 15px; }
+.team-card { padding: 15px; border-radius: 10px; background: white; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+</style>
+
+<script>
+function searchTeams(){
+    let skill = document.getElementById("search-skill").value;
+    fetch(`backend/search_teams.php?skill=${skill}`)
+    .then(res => res.json())
+    .then(data => {
+        let container = document.getElementById("team-results");
+        container.innerHTML = "";
+        data.forEach(team => {
+            container.innerHTML += `
+                <div class="team-card">
+                    <h3>${team.name}</h3>
+                    <p>Skills: ${team.skills}</p>
+                    <p>College Tier: ${team.tier}</p>
+                    <button onclick="connectTeam('${team.id}')">Connect</button>
+                </div>
+            `;
+        });
+    });
+}
+function connectTeam(id){
+    alert("Request sent to join team " + id);
+}
+</script>

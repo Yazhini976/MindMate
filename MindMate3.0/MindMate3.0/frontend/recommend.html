@@ -1,0 +1,27 @@
+<!-- Recommendations -->
+<section id="recommendations">
+  <h2>Recommended for You</h2>
+  <div id="recommendation-cards"></div>
+</section>
+
+<style>
+#recommendations { padding: 20px; background: #f3e5f5; border-radius: 10px; }
+.recommend-card { background: white; padding: 15px; border-radius: 10px; margin-bottom: 10px; }
+</style>
+
+<script>
+fetch("backend/recommendations.php")
+.then(res => res.json())
+.then(data => {
+    let container = document.getElementById("recommendation-cards");
+    data.forEach(rec=>{
+        container.innerHTML += `
+            <div class="recommend-card">
+                <h3>${rec.title}</h3>
+                <p>${rec.description}</p>
+                <small>Based on your skill: ${rec.skill}</small>
+            </div>
+        `;
+    });
+});
+</script>

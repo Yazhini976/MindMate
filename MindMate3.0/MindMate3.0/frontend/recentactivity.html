@@ -1,0 +1,22 @@
+<!-- Recent Activity -->
+<section id="recent-activity">
+  <h2>Your Recent Activity</h2>
+  <ul id="activity-list"></ul>
+</section>
+
+<style>
+#recent-activity { padding: 20px; background: #e8f5e9; border-radius: 10px; }
+#recent-activity ul { list-style: none; padding: 0; }
+#recent-activity li { padding: 8px; margin-bottom: 5px; background: white; border-radius: 6px; }
+</style>
+
+<script>
+fetch("backend/get_recent_activity.php")
+.then(res => res.json())
+.then(data => {
+    let list = document.getElementById("activity-list");
+    data.forEach(act=>{
+        list.innerHTML += `<li>${act.date} - ${act.action}</li>`;
+    });
+});
+</script>

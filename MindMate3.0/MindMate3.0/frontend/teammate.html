@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teammate Finder — Twinity</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    /* Improved styling */
+    body {
+      background: #f9fafb;
+      color: #222;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 3rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      max-width: 900px;
+      background: #fff;
+      box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+      border-radius: 15px;
+      padding: 2.5rem 2rem;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #1a237e;
+      margin-bottom: 2rem;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+
+    /* Filters */
+    #filterForm .form-select {
+      border-radius: 12px;
+      border: 1.8px solid #a3a9f1;
+      padding: 0.45rem 1rem;
+      font-weight: 600;
+      color: #3f3f61;
+      transition: border-color 0.3s ease;
+    }
+    #filterForm .form-select:focus {
+      outline: none;
+      border-color: #5c6bc0;
+      box-shadow: 0 0 8px #7986cb70;
+    }
+
+    /* Student list */
+    #studentList {
+      max-height: 550px;
+      overflow-y: auto;
+      border-radius: 15px;
+      border: 1.5px solid #c5cae9;
+      box-shadow: inset 0 0 12px #d1d9ff;
+    }
+    #studentList .list-group-item {
+      cursor: pointer;
+      border-radius: 12px;
+      padding: 1rem 1.4rem;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+      color: #2c387e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    #studentList .list-group-item:hover {
+      background-color: #e8eaff;
+      transform: translateX(5px);
+      color: #1a237e;
+      box-shadow: 2px 2px 6px #b0b6f9;
+    }
+
+    #studentList .badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: #7986cb;
+      color: white;
+      border-radius: 10px;
+      padding: 0.35em 0.65em;
+    }
+
+    /* Modal styling */
+    .modal-content {
+      border-radius: 18px;
+      box-shadow: 0 12px 32px rgb(0 0 0 / 0.2);
+      font-weight: 500;
+      color: #1e1e2f;
+    }
+    .modal-header {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .modal-title {
+      font-weight: 700;
+      color: #283593;
+      font-size: 1.8rem;
+    }
+    .modal-body p {
+      font-size: 1.05rem;
+      margin-bottom: 0.7rem;
+    }
+    .modal-footer {
+      border-top: none;
+      padding-top: 0;
+    }
+    .btn-close {
+      filter: drop-shadow(0 0 1px #3f51b5);
+    }
+    .btn-secondary {
+      background-color: #5c6bc0;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      padding: 0.5rem 1.4rem;
+      transition: background-color 0.3s ease;
+    }
+    .btn-secondary:hover {
+      background-color: #3949ab;
+    }
+
+    /* Scrollbar for studentList */
+    #studentList::-webkit-scrollbar {
+      width: 8px;
+    }
+    #studentList::-webkit-scrollbar-thumb {
+      background: #9fa8da;
+      border-radius: 20px;
+    }
+    #studentList::-webkit-scrollbar-track {
+      background: #f1f3ff;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 576px) {
+      #filterForm .form-select {
+        font-size: 0.9rem;
+      }
+      #studentList .list-group-item {
+        font-size: 0.9rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
+      }
+      #studentList .badge {
+        align-self: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Find Your Teammate</h2>
+
+    <!-- Filters -->
+    <form id="filterForm" class="row g-3 mb-4 justify-content-center">
+      <div class="col-12 col-md-6 col-lg-3">
+        <select id="filterDomain" class="form-select" aria-label="Filter by domain">
+          <option value="">All Domains</option>
+          <option value="Web Development">Web Development</option>
+          <option value="Data Science">Data Science</option>
+          <option value="AI/ML">AI/ML</option>
+          <option value="Mobile Apps">Mobile Apps</option>
+          <option value="Cybersecurity">Cybersecurity</option>
+          <option value="Cloud Computing">Cloud Computing</option>
+          <option value="Blockchain">Blockchain</option>
+          <option value="DevOps">DevOps</option>
+        </select>
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2">
+        <select id="filterSkill" class="form-select" aria-label="Filter by skill level">
+          <option value="">Any Skill Level</option>
+          <option value="Level 1">Level 1</option>
+          <option value="Level 2">Level 2</option>
+          <option value="Level 3">Level 3</option>
+        </select>
+      </div>
+
+      <div class="col-6 col-md-3 col-lg-2">
+        <select id="filterRegion" class="form-select" aria-label="Filter by region">
+          <option value="">All Regions</option>
+          <option value="North">North</option>
+          <option value="South">South</option>
+          <option value="East">East</option>
+          <option value="West">West</option>
+          <option value="Central">Central</option>
+        </select>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-3">
+        <select id="filterTier" class="form-select" aria-label="Filter by college tier">
+          <option value="">All College Tiers</option>
+          <option value="Tier 1">Tier 1</option>
+          <option value="Tier 2">Tier 2</option>
+          <option value="Tier 3">Tier 3</option>
+        </select>
+      </div>
+    </form>
+
+    <!-- List of Students -->
+    <div id="studentList" class="list-group" aria-live="polite" aria-relevant="additions" tabindex="0"></div>
+  </div>
+
+  <!-- Student Detail Modal -->
+  <div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content rounded-4 shadow-lg">
+        <div class="modal-header">
+          <h5 class="modal-title" id="studentModalLabel">Student Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4 id="modalName"></h4>
+          <p><strong>Domain:</strong> <span id="modalDomain"></span></p>
+          <p><strong>Skill Level:</strong> <span id="modalSkill"></span></p>
+          <p><strong>Region:</strong> <span id="modalRegion"></span></p>
+          <p><strong>College Tier:</strong> <span id="modalTier"></span></p>
+          <p><strong>Contact:</strong> <a href="#" id="modalContact" target="_blank" rel="noopener noreferrer">Send Message</a></p>
+          <p><strong>Bio:</strong> <span id="modalBio"></span></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    const studentList = document.getElementById('studentList');
+    const filterForm = document.getElementById('filterForm');
+    const studentModal = new bootstrap.Modal(document.getElementById('studentModal'));
+
+    const modalName = document.getElementById('modalName');
+    const modalDomain = document.getElementById('modalDomain');
+    const modalSkill = document.getElementById('modalSkill');
+    const modalRegion = document.getElementById('modalRegion');
+    const modalTier = document.getElementById('modalTier');
+    const modalContact = document.getElementById('modalContact');
+    const modalBio = document.getElementById('modalBio');
+
+    // Helper: generate random sample students
+    function generateStudents(count = 100) {
+      const domains = ['Web Development', 'Data Science', 'AI/ML', 'Mobile Apps', 'Cybersecurity', 'Cloud Computing', 'Blockchain', 'DevOps'];
+      const skillLevels = ['Level 1', 'Level 2', 'Level 3'];
+      const regions = ['North', 'South', 'East', 'West', 'Central'];
+      const tiers = ['Tier 1', 'Tier 2', 'Tier 3'];
+      const firstNames = ['Ananya', 'Ravi', 'Sita', 'Arjun', 'Neha', 'Karan', 'Meera', 'Vikram', 'Lata', 'Rahul', 'Sneha', 'Manish', 'Pooja', 'Aditya', 'Isha', 'Varun', 'Deepa', 'Nikhil', 'Tara', 'Sahil'];
+      const lastNames = ['Raj', 'Kumar', 'Sharma', 'Patel', 'Singh', 'Das', 'Reddy', 'Gupta', 'Mehta', 'Joshi', 'Nair', 'Choudhury', 'Bose', 'Iyer', 'Malhotra', 'Kapoor', 'Saxena', 'Ghosh', 'Rao', 'Nanda'];
+
+      const bios = [
+        "Passionate about technology and always eager to learn.",
+        "Looking for teammates to build innovative projects.",
+        "Enthusiastic coder with a knack for problem-solving.",
+        "Aspiring developer with experience in multiple domains.",
+        "Dedicated to continuous learning and team collaboration.",
+        "Love contributing to open-source and hackathons.",
+        "Strong foundation in coding and software development.",
+        "Ready to collaborate on exciting and challenging projects.",
+        "Seeking opportunities to grow and share knowledge.",
+        "Focused on building scalable and efficient solutions."
+      ];
+
+      let students = [];
+
+      for (let i = 1; i <= count; i++) {
+        const fname = firstNames[Math.floor(Math.random() * firstNames.length)];
+        const lname = lastNames[Math.floor(Math.random() * lastNames.length)];
+        const domain = domains[Math.floor(Math.random() * domains.length)];
+        const skill = skillLevels[Math.floor(Math.random() * skillLevels.length)];
+        const region = regions[Math.floor(Math.random() * regions.length)];
+        const tier = tiers[Math.floor(Math.random() * tiers.length)];
+        const bio = bios[Math.floor(Math.random() * bios.length)];
+        const email = `${fname.toLowerCase()}.${lname.toLowerCase()}${i}@example.com`;
+
+        students.push({
+          id: i,
+          name: `${fname} ${lname}`,
+          domain: domain,
+          skillLevel: skill,
+          region: region,
+          collegeTier: tier,
+          contact: `mailto:${email}`,
+          bio: bio
+        });
+      }
+      return students;
+    }
+
+    const students = generateStudents(120);
+
+    function renderStudents(filter = {}) {
+      studentList.innerHTML = '';
+
+      const filtered = students.filter(student => {
+        return (!filter.domain || student.domain === filter.domain)
+          && (!filter.skillLevel || student.skillLevel === filter.skillLevel)
+          && (!filter.region || student.region === filter.region)
+          && (!filter.collegeTier || student.collegeTier === filter.collegeTier);
+      });
+
+      if (filtered.length === 0) {
+        studentList.innerHTML = '<p class="text-center text-muted mt-4">No matching students found.</p>';
+        return;
+      }
+
+      filtered.forEach(student => {
+        const item = document.createElement('button');
+        item.type = 'button';
+        item.className = 'list-group-item list-group-item-action d-flex justify-content-between align-items-center';
+        item.textContent = student.name;
+        
+        // Add badges on the right
+        const badgesDiv = document.createElement('div');
+        badgesDiv.classList.add('d-flex', 'gap-2');
+
+        const domainBadge = document.createElement('span');
+        domainBadge.className = 'badge bg-primary';
+        domainBadge.textContent = student.domain;
+        badgesDiv.appendChild(domainBadge);
+
+        const skillBadge = document.createElement('span');
+        skillBadge.className = 'badge bg-success';
+        skillBadge.textContent = student.skillLevel;
+        badgesDiv.appendChild(skillBadge);
+
+        item.appendChild(badgesDiv);
+
+        item.setAttribute('aria-label', `View details for ${student.name}`);
+
+        item.addEventListener('click', () => {
+          showStudentModal(student);
+        });
+
+        studentList.appendChild(item);
+      });
+    }
+
+    function showStudentModal(student) {
+      modalName.textContent = student.name;
+      modalDomain.textContent = student.domain;
+      modalSkill.textContent = student.skillLevel;
+      modalRegion.textContent = student.region;
+      modalTier.textContent = student.collegeTier;
+      modalContact.href = student.contact;
+      modalContact.textContent = student.contact.replace(/^mailto:/, '');
+      modalBio.textContent = student.bio;
+
+      studentModal.show();
+    }
+
+    filterForm.addEventListener('change', () => {
+      const filter = {
+        domain: filterForm.filterDomain.value,
+        skillLevel: filterForm.filterSkill.value,
+        region: filterForm.filterRegion.value,
+        collegeTier: filterForm.filterTier.value,
+      };
+      renderStudents(filter);
+    });
+
+    // Initial render with no filter
+    renderStudents();
+  </script>
+</body>
+</html>
